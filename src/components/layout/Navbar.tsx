@@ -11,7 +11,10 @@ const Navbar: FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   // Toggle menu open/closed
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const toggleMenu = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsMenuOpen((prev) => !prev);
+  };
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -119,7 +122,7 @@ const Navbar: FC = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-gray-800 overflow-hidden shadow-lg"
+            className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-800 overflow-hidden shadow-lg z-50"
           >
             <div className="px-4 py-3 space-y-1">
               {navLinks.map((link) => (
