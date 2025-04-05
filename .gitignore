@@ -25,4 +25,15 @@ dist-ssr
 
 .vercel
 
-.vercel
+# .NET Core
+bin/
+obj/
+*.dll
+*.pdb
+*.userprefs
+*.user
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+**/.toolstarget
