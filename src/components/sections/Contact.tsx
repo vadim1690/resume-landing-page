@@ -1,5 +1,9 @@
 import { FC } from "react";
-import { personalInfo, socialLinks } from "../../data/resume";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../utils/motion";
+import { PersonalInfo, SocialLink } from "../../types";
+import { fetchPersonalInfo, fetchSocialLinks } from "../../api/resumeApi";
+import { useState, useEffect } from "react";
 import SectionContainer from "../ui/SectionContainer";
 import SectionTitle from "../ui/SectionTitle";
 import ContactForm from "../ui/ContactForm";
@@ -9,9 +13,34 @@ import {
   PhoneIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
-import { motion } from "framer-motion";
 
 const Contact: FC = () => {
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadContactData = async () => {
+      try {
+        const [personalData, socialData] = await Promise.all([
+          fetchPersonalInfo(),
+          fetchSocialLinks(),
+        ]);
+
+        setPersonalInfo(personalData);
+        setSocialLinks(socialData);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error loading contact data:", err);
+        setError("Failed to load contact information");
+        setLoading(false);
+      }
+    };
+
+    loadContactData();
+  }, []);
+
   const contactItemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -56,6 +85,36 @@ const Contact: FC = () => {
       </div>
     </motion.div>
   );
+
+  if (loading) {
+    return (
+      <SectionContainer id="contact">
+        <SectionTitle
+          title="Get in Touch"
+          subtitle="Let's connect and discuss your project"
+          icon={EnvelopeIcon}
+        />
+        <div className="text-center text-gray-600 dark:text-gray-400">
+          Loading contact information...
+        </div>
+      </SectionContainer>
+    );
+  }
+
+  if (error || !personalInfo) {
+    return (
+      <SectionContainer id="contact">
+        <SectionTitle
+          title="Get in Touch"
+          subtitle="Let's connect and discuss your project"
+          icon={EnvelopeIcon}
+        />
+        <div className="text-center text-red-600 dark:text-red-400">
+          {error || "Failed to load contact information"}
+        </div>
+      </SectionContainer>
+    );
+  }
 
   return (
     <SectionContainer id="contact">

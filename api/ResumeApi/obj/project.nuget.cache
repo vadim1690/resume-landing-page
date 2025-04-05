@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "/yyeO1+lNBE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\vadim\\Desktop\\Programming\\FullStack\\Projects\\ResumeLandingPage\\api\\ResumeApi\\ResumeApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vadim\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.3\\microsoft.aspnetcore.openapi.9.0.3.nupkg.sha512",
+    "C:\\Users\\vadim\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}

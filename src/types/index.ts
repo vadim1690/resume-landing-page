@@ -37,3 +37,18 @@ export interface NavLink {
   name: string;
   href: string;
 }
+
+export interface PersonalInfo {
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  location: string;
+  bio: string;
+  summary: string;
+}
+
+export interface SkillCategory {
+  title: string;
+  skills: string[];
+}

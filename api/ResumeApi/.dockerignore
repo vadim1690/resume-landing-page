@@ -1,0 +1,23 @@
+# directories
+**/bin/
+**/obj/
+**/out/
+
+# files
+fly.toml
+Dockerfile*
+**/*.md
+
+Dockerfile
+.dockerignore
+.git
+.gitignore
+.vs
+.vscode
+**/.toolstarget
+**/*.user
+**/*.publish.xml
+**/*.publishsettings
+publish/
+out/
+.env

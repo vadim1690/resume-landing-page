@@ -1,10 +1,39 @@
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { ArrowDownIcon } from "@heroicons/react/24/outline";
-import { personalInfo, socialLinks } from "../../data/resume";
+import { fadeIn } from "../../utils/motion";
+import { PersonalInfo, SocialLink } from "../../types";
+import { fetchPersonalInfo, fetchSocialLinks } from "../../api/resumeApi";
+import { useState, useEffect } from "react";
 import SocialLinks from "../ui/SocialLinks";
 
 const Hero: FC = () => {
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadHeroData = async () => {
+      try {
+        const [personalData, socialData] = await Promise.all([
+          fetchPersonalInfo(),
+          fetchSocialLinks(),
+        ]);
+
+        setPersonalInfo(personalData);
+        setSocialLinks(socialData);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching hero data:", err);
+        setError("Failed to load data");
+        setLoading(false);
+      }
+    };
+
+    loadHeroData();
+  }, []);
+
   const scrollToNextSection = () => {
     const aboutSection = document.getElementById("about");
     aboutSection?.scrollIntoView({ behavior: "smooth" });
@@ -32,6 +61,28 @@ const Hero: FC = () => {
       },
     },
   };
+
+  if (loading) {
+    return (
+      <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900 z-0" />
+        <div className="text-center text-gray-600 dark:text-gray-400 z-10">
+          Loading profile information...
+        </div>
+      </section>
+    );
+  }
+
+  if (error || !personalInfo) {
+    return (
+      <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900 z-0" />
+        <div className="text-center text-red-600 dark:text-red-400 z-10">
+          {error || "Failed to load profile information"}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative min-h-screen flex items-center px-4 overflow-hidden">
@@ -73,9 +124,8 @@ const Hero: FC = () => {
             className="text-lg text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto"
             variants={itemVariants}
           >
-            Building modern web applications with C#/.NET and React. Passionate
-            about creating scalable architecture and delivering exceptional user
-            experiences.
+            {personalInfo.summary ||
+              "Building modern web applications with C#/.NET and React. Passionate about creating scalable architecture and delivering exceptional user experiences."}
           </motion.p>
 
           <motion.div

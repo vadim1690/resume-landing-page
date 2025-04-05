@@ -3,12 +3,34 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useTheme } from "../../context/ThemeContext";
 import ThemeToggle from "../ui/ThemeToggle";
-import { navLinks } from "../../data/resume";
+import { fadeIn } from "../../utils/motion";
+import { NavLink } from "../../types";
+import { fetchNavLinks } from "../../api/resumeApi";
 
 const Navbar: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [navLinks, setNavLinks] = useState<NavLink[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { theme, toggleTheme } = useTheme();
+
+  // Fetch nav links
+  useEffect(() => {
+    const loadNavLinks = async () => {
+      try {
+        const data = await fetchNavLinks();
+        setNavLinks(data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Failed to load navigation links:", err);
+        setError("Failed to load navigation links");
+        setLoading(false);
+      }
+    };
+
+    loadNavLinks();
+  }, []);
 
   // Toggle menu open/closed
   const toggleMenu = (e: React.MouseEvent) => {
@@ -75,15 +97,16 @@ const Navbar: FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-gray-600 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
+            {!loading &&
+              navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-gray-600 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
             <ThemeToggle
               isDarkMode={theme === "dark"}
               toggleTheme={toggleTheme}
@@ -125,16 +148,27 @@ const Navbar: FC = () => {
             className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-800 overflow-hidden shadow-lg z-50"
           >
             <div className="px-4 py-3 space-y-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="block py-2 px-3 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
+              {!loading &&
+                navLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="block py-2 px-3 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              {loading && (
+                <div className="py-2 px-3 text-gray-500 dark:text-gray-400">
+                  Loading...
+                </div>
+              )}
+              {error && (
+                <div className="py-2 px-3 text-red-500 dark:text-red-400">
+                  {error}
+                </div>
+              )}
             </div>
           </motion.div>
         )}

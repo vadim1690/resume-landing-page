@@ -1,11 +1,34 @@
 import { FC } from "react";
 import { motion } from "framer-motion";
-import { personalInfo } from "../../data/resume";
+import { fadeIn } from "../../utils/motion";
+import { PersonalInfo } from "../../types";
+import { fetchPersonalInfo } from "../../api/resumeApi";
+import { useState, useEffect } from "react";
 import SectionContainer from "../ui/SectionContainer";
 import SectionTitle from "../ui/SectionTitle";
 import { UserIcon } from "@heroicons/react/24/outline";
 
 const About: FC = () => {
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadInfo = async () => {
+      try {
+        const data = await fetchPersonalInfo();
+        setPersonalInfo(data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching personal info:", err);
+        setError("Failed to load personal information");
+        setLoading(false);
+      }
+    };
+
+    loadInfo();
+  }, []);
+
   const contentVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -26,6 +49,36 @@ const About: FC = () => {
       transition: { duration: 0.5 },
     },
   };
+
+  if (loading) {
+    return (
+      <SectionContainer id="about">
+        <SectionTitle
+          title="About Me"
+          subtitle="My background, expertise, and passion"
+          icon={UserIcon}
+        />
+        <div className="text-center text-gray-600 dark:text-gray-400">
+          Loading personal information...
+        </div>
+      </SectionContainer>
+    );
+  }
+
+  if (error || !personalInfo) {
+    return (
+      <SectionContainer id="about">
+        <SectionTitle
+          title="About Me"
+          subtitle="My background, expertise, and passion"
+          icon={UserIcon}
+        />
+        <div className="text-center text-red-600 dark:text-red-400">
+          {error || "Failed to load personal information"}
+        </div>
+      </SectionContainer>
+    );
+  }
 
   return (
     <SectionContainer id="about">

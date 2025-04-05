@@ -1,10 +1,11 @@
 import { FC, useState, useEffect } from "react";
-import { projects } from "../../data/resume";
+import { Project } from "../../types";
 import SectionContainer from "../ui/SectionContainer";
 import SectionTitle from "../ui/SectionTitle";
 import ProjectCard from "../ui/ProjectCard";
 import { CodeBracketIcon } from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
+import { fetchProjects } from "../../api/resumeApi";
 
 type ProjectCategory =
   | "all"
@@ -16,9 +17,28 @@ type ProjectCategory =
 
 const Projects: FC = () => {
   const [filter, setFilter] = useState<ProjectCategory>("all");
-  const [filteredProjects, setFilteredProjects] = useState(projects);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Update filtered projects when filter changes
+  // Fetch projects from API
+  useEffect(() => {
+    const getProjects = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchProjects();
+        setProjects(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getProjects();
+  }, []);
+
+  // Update filtered projects when filter or projects change
   useEffect(() => {
     if (filter === "all") {
       setFilteredProjects(projects);
@@ -27,7 +47,7 @@ const Projects: FC = () => {
         projects.filter((project) => project.category === filter)
       );
     }
-  }, [filter]);
+  }, [filter, projects]);
 
   // Get unique categories from projects
   const uniqueCategories = Array.from(new Set(projects.map((p) => p.category)));
@@ -45,6 +65,21 @@ const Projects: FC = () => {
       },
     },
   };
+
+  if (loading) {
+    return (
+      <SectionContainer id="projects">
+        <SectionTitle
+          title="Projects"
+          subtitle="Some of my recent work and side projects"
+          icon={CodeBracketIcon}
+        />
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+        </div>
+      </SectionContainer>
+    );
+  }
 
   return (
     <SectionContainer id="projects">
