@@ -1,5 +1,0 @@
-[33mcommit b7bd7836f867e728fd8be0b37c2b30dabea7c3ef[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
-Author: Vadim Lazarevich <68230512+vadim1690@users.noreply.github.com>
-Date:   Sat Apr 5 12:17:57 2025 +0300
-
-    Add CI/CD with GitHub Actions for automatic deployment to Vercel and Fly.io

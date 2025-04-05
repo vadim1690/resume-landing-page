@@ -1,13 +1,51 @@
 # Resume Landing Page
 
-A professional personal portfolio and resume landing page built with React (frontend) and .NET API (backend).
+This repository contains a full-stack application for creating and displaying a professional resume.
 
 ## Project Structure
 
-This project consists of two main parts:
+The project is organized into two main directories:
 
-1. **React Frontend**: A modern, responsive React application using TypeScript, Tailwind CSS, and Framer Motion animations
-2. **.NET Backend API**: A .NET Core API that serves resume data
+- **frontend/**: Contains the React application
+
+  - Built with React, TypeScript, and Tailwind CSS
+  - Frontend for displaying resume data in a responsive layout
+
+- **backend/**: Contains the .NET Web API
+  - API built with ASP.NET Core
+  - Provides resume data endpoints
+  - Contains test project for API testing
+
+## Development Setup
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Backend
+
+```bash
+cd backend
+dotnet restore ./api/ResumeApi/ResumeApi.csproj
+dotnet run --project ./api/ResumeApi/ResumeApi.csproj
+```
+
+## Deployment
+
+- Frontend is deployed to Vercel
+- Backend is deployed to Fly.io
+
+## CI/CD
+
+The project uses GitHub Actions for continuous integration and deployment:
+
+- React unit tests on frontend changes
+- .NET unit tests on backend changes
+- Automated deployment to Vercel (frontend) and Fly.io (backend)
 
 ## Getting Started
 
@@ -99,30 +137,62 @@ This project consists of two main parts:
 3. **CORS Configuration**:
    - Configure CORS appropriately for security
 
-## Deployment
+## Testing
 
-### Frontend
+This project includes automated tests for both the frontend and backend components.
 
-The frontend is configured for deployment on Vercel:
+### Frontend Tests
 
-1. Connect the GitHub repository to Vercel
-2. Set the environment variable `VITE_API_URL` to point to the deployed API
+The React frontend uses Vitest and React Testing Library for testing.
 
-### Backend
-
-The backend is configured for deployment on Fly.io:
-
-1. Make sure Fly CLI is installed:
+1. Run the tests:
 
    ```bash
-   curl -L https://fly.io/install.sh | sh
+   npm test
    ```
 
-2. Deploy to Fly.io:
+2. Run the tests in watch mode during development:
+
    ```bash
-   cd api/ResumeApi
-   fly deploy
+   npm run test:watch
    ```
+
+3. Run tests with coverage report:
+
+   ```bash
+   npm run test:ci
+   ```
+
+### Backend Tests
+
+The .NET backend uses xUnit for testing.
+
+1. Navigate to the test project:
+
+   ```bash
+   cd api/ResumeApi.Tests
+   ```
+
+2. Run the tests:
+
+   ```bash
+   dotnet test
+   ```
+
+3. Run tests with coverage report:
+
+   ```bash
+   dotnet test --collect:"XPlat Code Coverage"
+   ```
+
+### Continuous Integration
+
+Tests are automatically run on each push to the repository through GitHub Actions workflows:
+
+- React tests run when changes are made to the frontend code
+- .NET tests run when changes are made to the backend code
+
+If tests fail, the deployment pipelines are blocked to prevent deploying broken code.
 
 ## Contributing
 

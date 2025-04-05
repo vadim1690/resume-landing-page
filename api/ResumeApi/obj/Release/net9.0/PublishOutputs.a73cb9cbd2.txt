@@ -1,9 +1,0 @@
-C:\Users\vadim\Desktop\Programming\FullStack\Projects\ResumeLandingPage\api\ResumeApi\publish\ResumeApi.exe
-C:\Users\vadim\Desktop\Programming\FullStack\Projects\ResumeLandingPage\api\ResumeApi\publish\appsettings.Development.json
-C:\Users\vadim\Desktop\Programming\FullStack\Projects\ResumeLandingPage\api\ResumeApi\publish\appsettings.json
-C:\Users\vadim\Desktop\Programming\FullStack\Projects\ResumeLandingPage\api\ResumeApi\publish\ResumeApi.dll
-C:\Users\vadim\Desktop\Programming\FullStack\Projects\ResumeLandingPage\api\ResumeApi\publish\ResumeApi.deps.json
-C:\Users\vadim\Desktop\Programming\FullStack\Projects\ResumeLandingPage\api\ResumeApi\publish\ResumeApi.runtimeconfig.json
-C:\Users\vadim\Desktop\Programming\FullStack\Projects\ResumeLandingPage\api\ResumeApi\publish\ResumeApi.pdb
-C:\Users\vadim\Desktop\Programming\FullStack\Projects\ResumeLandingPage\api\ResumeApi\publish\Microsoft.AspNetCore.OpenApi.dll
-C:\Users\vadim\Desktop\Programming\FullStack\Projects\ResumeLandingPage\api\ResumeApi\publish\Microsoft.OpenApi.dll

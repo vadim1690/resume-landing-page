@@ -4,17 +4,17 @@ on:
   push:
     branches: [master]
     paths:
-      - "src/**"
-      - "package.json"
-      - "package-lock.json"
-      - "vitest.config.ts"
+      - "frontend/src/**"
+      - "frontend/package.json"
+      - "frontend/package-lock.json"
+      - "frontend/vitest.config.ts"
   pull_request:
     branches: [master]
     paths:
-      - "src/**"
-      - "package.json"
-      - "package-lock.json"
-      - "vitest.config.ts"
+      - "frontend/src/**"
+      - "frontend/package.json"
+      - "frontend/package-lock.json"
+      - "frontend/vitest.config.ts"
 
 jobs:
   test:
@@ -31,18 +31,21 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
 
       # Install dependencies from package-lock.json
       - name: Install dependencies
         run: npm ci
+        working-directory: ./frontend
 
       # Run tests with type checking disabled to avoid TS errors
       - name: Run tests
         run: npm run test:ci
+        working-directory: ./frontend
 
       # Upload coverage reports as artifacts
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
           name: react-coverage-report
-          path: coverage/
+          path: frontend/coverage/

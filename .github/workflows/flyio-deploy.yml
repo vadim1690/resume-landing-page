@@ -4,10 +4,34 @@ on:
   push:
     branches: [master]
     paths:
-      - "api/**"
+      - "backend/api/**"
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./backend/api/ResumeApi.Tests
+
+      - name: Build
+        run: dotnet build --no-restore
+        working-directory: ./backend/api/ResumeApi.Tests
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+        working-directory: ./backend/api/ResumeApi.Tests
+
   deploy:
+    needs: test
     name: Deploy API
     runs-on: ubuntu-latest
 
@@ -22,7 +46,7 @@ jobs:
 
       - name: Build .NET project
         run: |
-          cd api/ResumeApi
+          cd backend/api/ResumeApi
           dotnet build --configuration Release
 
       - name: Install Flyctl
@@ -30,7 +54,7 @@ jobs:
 
       - name: Deploy to Fly.io
         run: |
-          cd api/ResumeApi
+          cd backend/api/ResumeApi
           flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

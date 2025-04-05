@@ -1,16 +1,47 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-node_modules
-dist
-dist-ssr
-*.local
+# dependencies
+/node_modules
+/frontend/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+/frontend/coverage
+
+# production
+/build
+/frontend/build
+/frontend/dist
+/dist
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.development
+.env.test
+/frontend/.env
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.development
+/frontend/.env.test
+
+# .NET
+bin/
+obj/
+/backend/**/bin/
+/backend/**/obj/
+TestResults/
+.vs/
+
+# Vercel
+.vercel
+/frontend/.vercel
 
 # Editor directories and files
 .vscode/*
@@ -22,18 +53,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.cursor
 
-.vercel
-
-# .NET Core
-bin/
-obj/
-*.dll
-*.pdb
-*.userprefs
-*.user
-project.lock.json
-project.fragment.lock.json
-artifacts/
-**/Properties/launchSettings.json
-**/.toolstarget
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
