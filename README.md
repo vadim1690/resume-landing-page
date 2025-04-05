@@ -101,25 +101,14 @@ This project consists of two main parts:
 
 ## Deployment
 
-### CI/CD with GitHub Actions
-
-This project uses GitHub Actions for continuous deployment:
-
-- Frontend (React) is automatically deployed to Vercel when changes are pushed to the main branch
-- Backend (.NET API) is automatically deployed to Fly.io when changes are pushed to the main branch
-
-See the `.github` directory for workflow configurations and setup instructions.
-
-### Manual Deployment
-
-#### Frontend
+### Frontend
 
 The frontend is configured for deployment on Vercel:
 
 1. Connect the GitHub repository to Vercel
 2. Set the environment variable `VITE_API_URL` to point to the deployed API
 
-#### Backend
+### Backend
 
 The backend is configured for deployment on Fly.io:
 
