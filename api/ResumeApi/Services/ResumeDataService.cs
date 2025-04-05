@@ -20,7 +20,7 @@ namespace ResumeApi.Services
             {
                 entry.SlidingExpiration = _cacheDuration;
                 return CreatePersonalInfo();
-            });
+            })!;
         }
 
         // Get nav links with caching
@@ -30,7 +30,7 @@ namespace ResumeApi.Services
             {
                 entry.SlidingExpiration = _cacheDuration;
                 return CreateNavLinks();
-            });
+            })!;
         }
 
         // Get social links with caching
@@ -40,7 +40,7 @@ namespace ResumeApi.Services
             {
                 entry.SlidingExpiration = _cacheDuration;
                 return CreateSocialLinks();
-            });
+            })!;
         }
 
         // Get experiences with caching
@@ -50,7 +50,7 @@ namespace ResumeApi.Services
             {
                 entry.SlidingExpiration = _cacheDuration;
                 return CreateExperiences();
-            });
+            })!;
         }
 
         // Get education with caching
@@ -60,7 +60,7 @@ namespace ResumeApi.Services
             {
                 entry.SlidingExpiration = _cacheDuration;
                 return CreateEducation();
-            });
+            })!;
         }
 
         // Get skill categories with caching
@@ -70,7 +70,7 @@ namespace ResumeApi.Services
             {
                 entry.SlidingExpiration = _cacheDuration;
                 return CreateSkillCategories();
-            });
+            })!;
         }
 
         // Get projects with caching
@@ -80,7 +80,7 @@ namespace ResumeApi.Services
             {
                 entry.SlidingExpiration = _cacheDuration;
                 return CreateProjects();
-            });
+            })!;
         }
 
         #region Data Creation Methods

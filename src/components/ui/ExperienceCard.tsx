@@ -67,33 +67,34 @@ const ExperienceCard: FC<ExperienceCardProps> = ({ experience }) => {
             </span>
           </div>
           <p className="text-primary-600 dark:text-primary-400 text-sm mb-4 font-semibold">
-            {experience.company}{" "}
-            {experience.location && `• ${experience.location}`}
+            {experience.company}
           </p>
           <div className="mb-4">
-            {experience.description.map((desc, index) => (
-              <div key={index} className="mb-3 last:mb-0">
-                <div className="flex">
-                  <div className="flex-shrink-0 pt-1">
-                    <span className="flex h-2 w-2 rounded-full bg-primary-500 mt-1.5 mr-3"></span>
+            {experience.description &&
+              experience.description.map((desc, index) => (
+                <div key={index} className="mb-3 last:mb-0">
+                  <div className="flex">
+                    <div className="flex-shrink-0 pt-1">
+                      <span className="flex h-2 w-2 rounded-full bg-primary-500 mt-1.5 mr-3"></span>
+                    </div>
+                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                      {desc}
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                    {desc}
-                  </p>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
           <div className="flex flex-wrap gap-1.5">
-            {experience.technologies.map((tech, idx) => (
-              <span
-                key={tech}
-                className="text-xs px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600 hover:border-primary-300 dark:hover:border-primary-600 transition-colors duration-200"
-                style={{ transitionDelay: `${idx * 20}ms` }}
-              >
-                {tech}
-              </span>
-            ))}
+            {experience.technologies &&
+              experience.technologies.map((tech, idx) => (
+                <span
+                  key={idx}
+                  className="text-xs px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600 hover:border-primary-300 dark:hover:border-primary-600 transition-colors duration-200"
+                  style={{ transitionDelay: `${idx * 20}ms` }}
+                >
+                  {tech}
+                </span>
+              ))}
           </div>
         </div>
       </motion.div>

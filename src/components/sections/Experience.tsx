@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Experience as ExperienceType } from "../../types";
 import SectionContainer from "../ui/SectionContainer";
 import SectionTitle from "../ui/SectionTitle";
@@ -11,6 +11,13 @@ import { fadeIn } from "../../utils/motion";
 const Experience: FC = () => {
   // Use the centralized hook for data fetching
   const { experiences, loading, error } = useResumeData();
+
+  // Debug logging
+  useEffect(() => {
+    console.log("Experiences data:", experiences);
+    console.log("Loading state:", loading);
+    console.log("Error state:", error);
+  }, [experiences, loading, error]);
 
   if (loading) {
     return (
@@ -27,7 +34,7 @@ const Experience: FC = () => {
     );
   }
 
-  if (error || !experiences.length) {
+  if (error || !experiences || experiences.length === 0) {
     return (
       <SectionContainer id="experience">
         <SectionTitle

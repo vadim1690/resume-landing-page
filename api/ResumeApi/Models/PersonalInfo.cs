@@ -2,11 +2,11 @@ namespace ResumeApi.Models
 {
     public class PersonalInfo
     {
-        public string Name { get; set; }
-        public string Role { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Location { get; set; }
-        public string Bio { get; set; }
+        public required string Name { get; set; }
+        public required string Role { get; set; }
+        public required string Email { get; set; }
+        public required string Phone { get; set; }
+        public required string Location { get; set; }
+        public required string Bio { get; set; }
     }
 }

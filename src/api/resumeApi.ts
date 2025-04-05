@@ -28,14 +28,21 @@ interface ResumeData {
  * Generic API request function to reduce code duplication
  */
 const apiRequest = async <T>(endpoint: string): Promise<T> => {
+  console.log(`Fetching API data from: ${API_BASE_URL}/${endpoint}`);
   try {
     const response = await fetch(`${API_BASE_URL}/${endpoint}`);
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      console.error(`API Error (${response.status}): ${errorText}`);
+      throw new Error(
+        `HTTP error! status: ${response.status}, message: ${errorText}`
+      );
     }
 
-    return (await response.json()) as T;
+    const data = (await response.json()) as T;
+    console.log(`Successfully fetched data from ${endpoint}:`, data);
+    return data;
   } catch (error) {
     console.error(`Error fetching ${endpoint}:`, error);
     throw error;

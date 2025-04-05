@@ -2,9 +2,9 @@ export interface Experience {
   company: string;
   role: string;
   period: string;
-  location?: string;
   description: string[];
   technologies: string[];
+  location?: string;
 }
 
 export interface Education {
