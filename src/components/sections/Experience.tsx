@@ -12,12 +12,7 @@ const Experience: FC = () => {
   // Use the centralized hook for data fetching
   const { experiences, loading, error } = useResumeData();
 
-  // Debug logging
-  useEffect(() => {
-    console.log("Experiences data:", experiences);
-    console.log("Loading state:", loading);
-    console.log("Error state:", error);
-  }, [experiences, loading, error]);
+  // Removed debug logging
 
   if (loading) {
     return (
