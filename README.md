@@ -1,41 +1,147 @@
 # Resume Landing Page
 
-A modern, responsive resume/portfolio website built with React, TypeScript, and Tailwind CSS.
+A professional personal portfolio and resume landing page built with React (frontend) and .NET API (backend).
 
-## Architecture
+## Project Structure
 
-- **Frontend**: React + TypeScript + Tailwind CSS
-- **Backend**: .NET API (hosted on Fly.io)
+This project consists of two main parts:
 
-## Deployment
+1. **React Frontend**: A modern, responsive React application using TypeScript, Tailwind CSS, and Framer Motion animations
+2. **.NET Backend API**: A .NET Core API that serves resume data
 
-### Backend API (Fly.io)
+## Getting Started
 
-The .NET API is deployed to Fly.io at: https://resumeapi.fly.dev/api/Resume
+### Prerequisites
 
-To deploy updates:
+- Node.js (v16+)
+- npm or yarn
+- .NET SDK 7.0+
+- Git
 
-```
-cd api/ResumeApi
-flyctl deploy
-```
+### Installation and Setup
 
-### Frontend React App
+#### Frontend (React)
 
-The React frontend is hosted on Vercel and configured to use the Fly.io API endpoint in production.
+1. Install dependencies:
 
-## Local Development
-
-1. **Run the API**
-
-   ```
-   cd api/ResumeApi
-   dotnet run
+   ```bash
+   npm install
    ```
 
-2. **Run the React app**
+2. Create an `.env.local` file in the root directory with:
+
    ```
+   VITE_API_URL=http://localhost:5112/api/Resume
+   ```
+
+3. Start the development server:
+
+   ```bash
    npm run dev
    ```
 
-The React app will be available at `http://localhost:5173` and the API at `http://localhost:5112/api/Resume`.
+4. The app will be available at `http://localhost:5173`
+
+#### Backend (API)
+
+1. Navigate to the API directory:
+
+   ```bash
+   cd api/ResumeApi
+   ```
+
+2. Build and run the API:
+
+   ```bash
+   dotnet build
+   dotnet run
+   ```
+
+3. The API will be available at `http://localhost:5112`
+
+## Development Best Practices
+
+### Frontend
+
+1. **Component Structure**:
+
+   - Use functional components with hooks
+   - Organize components into `ui`, `layout`, and `sections` folders
+   - Use custom hooks for data fetching and shared logic
+
+2. **Data Fetching**:
+
+   - Use the centralized `useResumeData` hook for data access
+   - Handle loading and error states consistently
+
+3. **Styling**:
+
+   - Use Tailwind CSS for styling components
+   - Organize custom styles in appropriate CSS modules
+
+4. **Performance**:
+   - Use React.lazy and Suspense for code-splitting
+   - Implement memoization where beneficial
+   - Use ErrorBoundary components to catch and handle errors
+
+### Backend
+
+1. **Service Pattern**:
+
+   - Follow the service pattern for data access
+   - Implement caching for improved performance
+
+2. **API Design**:
+
+   - Use RESTful conventions for endpoints
+   - Include appropriate HTTP status codes and error handling
+
+3. **CORS Configuration**:
+   - Configure CORS appropriately for security
+
+## Deployment
+
+### CI/CD with GitHub Actions
+
+This project uses GitHub Actions for continuous deployment:
+
+- Frontend (React) is automatically deployed to Vercel when changes are pushed to the main branch
+- Backend (.NET API) is automatically deployed to Fly.io when changes are pushed to the main branch
+
+See the `.github` directory for workflow configurations and setup instructions.
+
+### Manual Deployment
+
+#### Frontend
+
+The frontend is configured for deployment on Vercel:
+
+1. Connect the GitHub repository to Vercel
+2. Set the environment variable `VITE_API_URL` to point to the deployed API
+
+#### Backend
+
+The backend is configured for deployment on Fly.io:
+
+1. Make sure Fly CLI is installed:
+
+   ```bash
+   curl -L https://fly.io/install.sh | sh
+   ```
+
+2. Deploy to Fly.io:
+   ```bash
+   cd api/ResumeApi
+   fly deploy
+   ```
+
+## Contributing
+
+1. Create a feature branch (`git checkout -b feature/amazing-feature`)
+2. Commit your changes (`git commit -m 'Add some amazing feature'`)
+3. Push to the branch (`git push origin feature/amazing-feature`)
+4. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License.

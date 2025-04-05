@@ -7,6 +7,9 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Add memory cache for better performance
+builder.Services.AddMemoryCache();
+
 // Register our services
 builder.Services.AddSingleton<ResumeDataService>();
 

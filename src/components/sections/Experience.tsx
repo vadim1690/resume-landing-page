@@ -1,31 +1,16 @@
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import { Experience as ExperienceType } from "../../types";
 import SectionContainer from "../ui/SectionContainer";
 import SectionTitle from "../ui/SectionTitle";
 import ExperienceCard from "../ui/ExperienceCard";
 import { BriefcaseIcon } from "@heroicons/react/24/outline";
-import { fetchExperiences } from "../../api/resumeApi";
+import { useResumeData } from "../../hooks/useResumeData";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../utils/motion";
 
 const Experience: FC = () => {
-  const [experiences, setExperiences] = useState<ExperienceType[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  // Fetch experiences from API
-  useEffect(() => {
-    const getExperiences = async () => {
-      setLoading(true);
-      try {
-        const data = await fetchExperiences();
-        setExperiences(data);
-      } catch (error) {
-        console.error("Error fetching experiences:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getExperiences();
-  }, []);
+  // Use the centralized hook for data fetching
+  const { experiences, loading, error } = useResumeData();
 
   if (loading) {
     return (
@@ -42,6 +27,21 @@ const Experience: FC = () => {
     );
   }
 
+  if (error || !experiences.length) {
+    return (
+      <SectionContainer id="experience">
+        <SectionTitle
+          title="Work Experience"
+          subtitle="My professional journey and achievements"
+          icon={BriefcaseIcon}
+        />
+        <div className="text-center text-gray-600 dark:text-gray-400">
+          {error || "No experience data available"}
+        </div>
+      </SectionContainer>
+    );
+  }
+
   return (
     <SectionContainer id="experience">
       <SectionTitle
@@ -50,23 +50,17 @@ const Experience: FC = () => {
         icon={BriefcaseIcon}
       />
 
-      {/* Container for the timeline layout */}
-      <div className="relative md:pl-12">
-        {" "}
-        {/* Add padding for timeline space */}
-        {/* Vertical timeline line - visible only on desktop */}
-        <div className="hidden md:block absolute left-0 top-5 bottom-0 w-1.5 bg-primary-100 dark:bg-primary-900/20 rounded-full"></div>
-        {/* Map through experiences */}
-        <div className="space-y-8 md:space-y-0 ">
-          {experiences.map((experience, index) => (
-            <ExperienceCard
-              key={`${experience.company}-${index}`}
-              experience={experience}
-              // No isEven prop needed anymore
-            />
-          ))}
-        </div>
-      </div>
+      <motion.div
+        className="space-y-8 mt-8"
+        variants={fadeIn("up", "spring", 0.3, 0.75)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.25 }}
+      >
+        {experiences.map((experience, index) => (
+          <ExperienceCard key={index} experience={experience} />
+        ))}
+      </motion.div>
     </SectionContainer>
   );
 };

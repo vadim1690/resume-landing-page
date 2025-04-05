@@ -1,10 +1,91 @@
+using Microsoft.Extensions.Caching.Memory;
 using ResumeApi.Models;
 
 namespace ResumeApi.Services
 {
     public class ResumeDataService
     {
+        private readonly IMemoryCache _cache;
+        private readonly TimeSpan _cacheDuration = TimeSpan.FromMinutes(30);
+
+        public ResumeDataService(IMemoryCache cache)
+        {
+            _cache = cache;
+        }
+
+        // Get personal info with caching
         public PersonalInfo GetPersonalInfo()
+        {
+            return _cache.GetOrCreate("personalInfo", entry =>
+            {
+                entry.SlidingExpiration = _cacheDuration;
+                return CreatePersonalInfo();
+            });
+        }
+
+        // Get nav links with caching
+        public List<NavLink> GetNavLinks()
+        {
+            return _cache.GetOrCreate("navLinks", entry =>
+            {
+                entry.SlidingExpiration = _cacheDuration;
+                return CreateNavLinks();
+            });
+        }
+
+        // Get social links with caching
+        public List<SocialLink> GetSocialLinks()
+        {
+            return _cache.GetOrCreate("socialLinks", entry =>
+            {
+                entry.SlidingExpiration = _cacheDuration;
+                return CreateSocialLinks();
+            });
+        }
+
+        // Get experiences with caching
+        public List<Experience> GetExperiences()
+        {
+            return _cache.GetOrCreate("experiences", entry =>
+            {
+                entry.SlidingExpiration = _cacheDuration;
+                return CreateExperiences();
+            });
+        }
+
+        // Get education with caching
+        public List<Education> GetEducation()
+        {
+            return _cache.GetOrCreate("education", entry =>
+            {
+                entry.SlidingExpiration = _cacheDuration;
+                return CreateEducation();
+            });
+        }
+
+        // Get skill categories with caching
+        public List<SkillCategory> GetSkillCategories()
+        {
+            return _cache.GetOrCreate("skillCategories", entry =>
+            {
+                entry.SlidingExpiration = _cacheDuration;
+                return CreateSkillCategories();
+            });
+        }
+
+        // Get projects with caching
+        public List<Project> GetProjects()
+        {
+            return _cache.GetOrCreate("projects", entry =>
+            {
+                entry.SlidingExpiration = _cacheDuration;
+                return CreateProjects();
+            });
+        }
+
+        #region Data Creation Methods
+
+        private PersonalInfo CreatePersonalInfo()
         {
             return new PersonalInfo
             {
@@ -17,7 +98,7 @@ namespace ResumeApi.Services
             };
         }
 
-        public List<NavLink> GetNavLinks()
+        private List<NavLink> CreateNavLinks()
         {
             return new List<NavLink>
             {
@@ -30,7 +111,7 @@ namespace ResumeApi.Services
             };
         }
 
-        public List<SocialLink> GetSocialLinks()
+        private List<SocialLink> CreateSocialLinks()
         {
             return new List<SocialLink>
             {
@@ -39,7 +120,7 @@ namespace ResumeApi.Services
             };
         }
 
-        public List<Experience> GetExperiences()
+        private List<Experience> CreateExperiences()
         {
             return new List<Experience>
             {
@@ -79,7 +160,7 @@ namespace ResumeApi.Services
             };
         }
 
-        public List<Education> GetEducation()
+        private List<Education> CreateEducation()
         {
             return new List<Education>
             {
@@ -102,7 +183,7 @@ namespace ResumeApi.Services
             };
         }
 
-        public List<SkillCategory> GetSkillCategories()
+        private List<SkillCategory> CreateSkillCategories()
         {
             return new List<SkillCategory>
             {
@@ -141,7 +222,7 @@ namespace ResumeApi.Services
             };
         }
 
-        public List<Project> GetProjects()
+        private List<Project> CreateProjects()
         {
             return new List<Project>
             {
@@ -195,5 +276,7 @@ namespace ResumeApi.Services
                 }
             };
         }
+
+        #endregion
     }
 }
