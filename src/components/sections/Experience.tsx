@@ -5,14 +5,10 @@ import SectionTitle from "../ui/SectionTitle";
 import ExperienceCard from "../ui/ExperienceCard";
 import { BriefcaseIcon } from "@heroicons/react/24/outline";
 import { useResumeData } from "../../hooks/useResumeData";
-import { motion } from "framer-motion";
-import { fadeIn } from "../../utils/motion";
 
 const Experience: FC = () => {
   // Use the centralized hook for data fetching
   const { experiences, loading, error } = useResumeData();
-
-  // Removed debug logging
 
   if (loading) {
     return (
@@ -22,8 +18,10 @@ const Experience: FC = () => {
           subtitle="My professional journey and achievements"
           icon={BriefcaseIcon}
         />
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+        <div className="text-center text-gray-600 dark:text-gray-400 p-6">
+          <div className="flex justify-center items-center h-32">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+          </div>
         </div>
       </SectionContainer>
     );
@@ -37,8 +35,10 @@ const Experience: FC = () => {
           subtitle="My professional journey and achievements"
           icon={BriefcaseIcon}
         />
-        <div className="text-center text-gray-600 dark:text-gray-400">
-          {error || "No experience data available"}
+        <div className="text-center text-red-600 dark:text-red-400 p-6">
+          <p className="font-bold mb-2">
+            {error || "No experience data available"}
+          </p>
         </div>
       </SectionContainer>
     );
@@ -52,17 +52,14 @@ const Experience: FC = () => {
         icon={BriefcaseIcon}
       />
 
-      <motion.div
-        className="space-y-8 mt-8"
-        variants={fadeIn("up", "spring", 0.3, 0.75)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-      >
+      <div className="space-y-8 mt-8">
         {experiences.map((experience, index) => (
-          <ExperienceCard key={index} experience={experience} />
+          <ExperienceCard
+            key={`${experience.company}-${index}`}
+            experience={experience}
+          />
         ))}
-      </motion.div>
+      </div>
     </SectionContainer>
   );
 };
