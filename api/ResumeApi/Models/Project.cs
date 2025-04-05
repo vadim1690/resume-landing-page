@@ -2,11 +2,11 @@ namespace ResumeApi.Models
 {
     public class Project
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Image { get; set; }
-        public List<string> Technologies { get; set; }
-        public string GithubUrl { get; set; }
-        public string Category { get; set; }
+        public required string Title { get; set; }
+        public required string Description { get; set; }
+        public required string Image { get; set; }
+        public required List<string> Technologies { get; set; } = new();
+        public required string GithubUrl { get; set; }
+        public required string Category { get; set; }
     }
 }

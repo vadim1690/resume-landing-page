@@ -3,7 +3,7 @@ using ResumeApi.Models;
 
 namespace ResumeApi.Services
 {
-    public class ResumeDataService
+    public class ResumeDataService : IResumeDataService
     {
         private readonly IMemoryCache _cache;
         private readonly TimeSpan _cacheDuration = TimeSpan.FromMinutes(30);

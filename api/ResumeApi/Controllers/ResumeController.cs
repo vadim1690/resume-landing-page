@@ -9,9 +9,9 @@ namespace ResumeApi.Controllers
     [Route("api/[controller]")]
     public class ResumeController : ControllerBase
     {
-        private readonly ResumeDataService _resumeDataService;
+        private readonly IResumeDataService _resumeDataService;
 
-        public ResumeController(ResumeDataService resumeDataService)
+        public ResumeController(IResumeDataService resumeDataService)
         {
             _resumeDataService = resumeDataService;
         }

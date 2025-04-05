@@ -2,7 +2,7 @@ namespace ResumeApi.Models
 {
     public class NavLink
     {
-        public string Name { get; set; }
-        public string Href { get; set; }
+        public required string Name { get; set; }
+        public required string Href { get; set; }
     }
 }

@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 
 // Register our services
-builder.Services.AddSingleton<ResumeDataService>();
+builder.Services.AddSingleton<IResumeDataService, ResumeDataService>();
 
 // Add CORS with a more permissive policy for development
 builder.Services.AddCors(options =>
