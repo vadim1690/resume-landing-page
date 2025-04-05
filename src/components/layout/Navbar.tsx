@@ -1,9 +1,8 @@
 import { FC, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../context/useTheme";
 import ThemeToggle from "../ui/ThemeToggle";
-import { fadeIn } from "../../utils/motion";
 import { NavLink } from "../../types";
 import { fetchNavLinks } from "../../api/resumeApi";
 

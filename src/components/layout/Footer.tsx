@@ -1,8 +1,6 @@
 import { FC } from "react";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import SocialLinks from "../ui/SocialLinks";
-import { motion } from "framer-motion";
-import { fadeIn } from "../../utils/motion";
 import { PersonalInfo, SocialLink, NavLink } from "../../types";
 import {
   fetchPersonalInfo,

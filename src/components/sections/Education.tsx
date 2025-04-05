@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { motion } from "framer-motion";
-import { fadeIn } from "../../utils/motion";
 import { Education as EducationType } from "../../types";
 import { fetchEducation } from "../../api/resumeApi";
 import { useState, useEffect } from "react";

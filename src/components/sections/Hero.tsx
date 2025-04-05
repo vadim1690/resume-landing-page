@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { ArrowDownIcon } from "@heroicons/react/24/outline";
-import { fadeIn } from "../../utils/motion";
 import { PersonalInfo, SocialLink } from "../../types";
 import { fetchPersonalInfo, fetchSocialLinks } from "../../api/resumeApi";
 import { useState, useEffect } from "react";

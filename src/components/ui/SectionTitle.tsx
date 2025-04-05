@@ -1,7 +1,5 @@
 // SectionTitle.tsx - Updated for CI/CD testing
 import { FC } from "react";
-import { motion } from "framer-motion";
-import { fadeIn } from "../../utils/motion";
 
 interface SectionTitleProps {
   title: string;

@@ -4,7 +4,6 @@ import SectionTitle from "../ui/SectionTitle";
 import SkillCategory from "../ui/SkillCategory";
 import { ChartBarIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
-import { fadeIn } from "../../utils/motion";
 import { SkillCategory as SkillCategoryType } from "../../types";
 import { fetchSkillCategories } from "../../api/resumeApi";
 import { useState, useEffect } from "react";
@@ -22,7 +21,8 @@ const Skills: FC = () => {
         const data = await fetchSkillCategories();
         setSkillCategories(data);
         setLoading(false);
-      } catch (err) {
+      } catch (error) {
+        console.error("Error loading skills:", error);
         setError("Failed to load skills");
         setLoading(false);
       }
