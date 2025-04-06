@@ -1,0 +1,52 @@
+.user-selector-container {
+  position: relative;
+}
+
+.user-selector-dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 16rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 9999 !important;
+  overflow: hidden;
+}
+
+.user-selector-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: transparent;
+  z-index: 9998;
+}
+
+.user-selector-button {
+  position: relative;
+  z-index: 9999;
+}
+
+.user-selector-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.user-selector-option:hover {
+  background-color: rgba(243, 244, 246, 1);
+}
+
+.dark .user-selector-option:hover {
+  background-color: rgba(55, 65, 81, 1);
+}
+
+.user-selector-option.selected {
+  background-color: rgba(239, 246, 255, 1);
+}
+
+.dark .user-selector-option.selected {
+  background-color: rgba(30, 58, 138, 1);
+}

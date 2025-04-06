@@ -1,0 +1,303 @@
+# Comprehensive Prompt for Node.js Resume Backend with MongoDB and Docker
+
+## Project Overview
+I need a complete backend for a resume application that will store and serve resume data for different users. The application should follow best practices and use modern technologies.
+
+## Technical Requirements
+
+### Core Technologies
+- Node.js (Latest LTS)
+- Express.js for API development
+- TypeScript for type safety
+- MongoDB for database storage
+- Docker and Docker Compose for containerization
+
+### Architecture
+Implement a clean 3-layer architecture:
+1. **Controllers Layer**: Handle HTTP requests and responses
+2. **Services Layer**: Implement business logic
+3. **Repositories Layer**: Handle data access and persistence
+
+### Database Requirements
+- Use MongoDB to store resume data
+- Store all user resume information in a single document collection
+- Include data seeding for two users (I'll provide the data)
+- Implement proper validation
+- Set up connection with proper error handling
+
+### API Endpoints
+1. **GET /api/resume/:userId** - Returns complete resume data for the specified user
+2. **Basic CRUD operations would be valuable extras**:
+   - POST /api/resume - Create a new resume
+   - PUT /api/resume/:userId - Update a resume
+   - DELETE /api/resume/:userId - Delete a resume
+
+### Docker Configuration
+- Create a full docker-compose.yml with:
+  - Node.js application container
+  - MongoDB container
+  - Proper networking between containers
+  - Volume mapping for MongoDB data persistence
+  - Environment variables for configuration
+  - Health checks
+- Ensure the solution works with Docker Desktop
+
+## Data Model
+The UserResume model should contain:
+- userId (unique identifier)
+- name (user's full name)
+- email (contact email)
+- personalInfo (detailed personal information)
+- navLinks (navigation links for the resume)
+- socialLinks (social media profiles)
+- experiences (work history with technologies used)
+- education (educational background)
+- skillCategories (skills grouped by category)
+- projects (portfolio projects with links)
+
+## Project Structure
+Follow a clean project structure:
+```
+/
+├── src/
+│   ├── controllers/      # API route handlers
+│   ├── services/         # Business logic
+│   ├── repositories/     # Data access layer
+│   ├── models/           # MongoDB schema definitions
+│   ├── middlewares/      # Express middlewares
+│   ├── config/           # Configuration
+│   ├── routes/           # API route definitions
+│   ├── utils/            # Utility functions
+│   └── types/            # TypeScript type definitions
+├── seeds/                # Database seed data
+├── docker/               # Docker-related files
+├── tests/                # Unit and integration tests
+└── docker-compose.yml    # Container orchestration
+```
+
+## Seed Data
+Include the following seed data for two users:
+
+### Vadim Lazarevich (User ID: 1)
+```javascript
+{
+  userId: 1,
+  name: "Vadim Lazarevich",
+  email: "vadim@example.com",
+  personalInfo: {
+    firstName: "Vadim",
+    lastName: "Lazarevich",
+    title: "Full Stack Developer",
+    description: "Passionate full stack developer with expertise in modern web technologies",
+    location: "New York, USA",
+    phone: "+1 (555) 123-4567",
+    email: "vadim@example.com",
+    github: "https://github.com/vadim",
+    linkedin: "https://linkedin.com/in/vadim",
+    twitter: "https://twitter.com/vadim",
+    website: "https://vadim.dev"
+  },
+  navLinks: [
+    { name: "About", url: "#about" },
+    { name: "Experience", url: "#experience" },
+    { name: "Education", url: "#education" },
+    { name: "Skills", url: "#skills" },
+    { name: "Projects", url: "#projects" },
+    { name: "Contact", url: "#contact" }
+  ],
+  socialLinks: [
+    { platform: "GitHub", url: "https://github.com/vadim", icon: "fab fa-github" },
+    { platform: "LinkedIn", url: "https://linkedin.com/in/vadim", icon: "fab fa-linkedin" },
+    { platform: "Twitter", url: "https://twitter.com/vadim", icon: "fab fa-twitter" }
+  ],
+  experiences: [
+    {
+      company: "Tech Corp",
+      position: "Senior Full Stack Developer",
+      period: "2020 - Present",
+      description: "Leading development of enterprise web applications",
+      location: "New York, USA",
+      technologies: ["React", "Node.js", "TypeScript", "Azure"]
+    },
+    {
+      company: "StartUp Inc",
+      position: "Full Stack Developer",
+      period: "2018 - 2020",
+      description: "Developed and maintained multiple web applications",
+      location: "San Francisco, USA",
+      technologies: ["Angular", "Python", "Django", "AWS"]
+    }
+  ],
+  education: [
+    {
+      institution: "University of Technology",
+      degree: "Bachelor of Science",
+      field: "Computer Science",
+      period: "2014 - 2018",
+      location: "New York, USA",
+      description: "Graduated with honors"
+    }
+  ],
+  skillCategories: [
+    {
+      name: "Frontend",
+      skills: ["React", "Angular", "TypeScript", "HTML5", "CSS3"]
+    },
+    {
+      name: "Backend",
+      skills: ["Node.js", "Python", "C#", "SQL", "MongoDB"]
+    },
+    {
+      name: "DevOps",
+      skills: ["Docker", "Kubernetes", "Azure", "AWS", "CI/CD"]
+    }
+  ],
+  projects: [
+    {
+      name: "E-Commerce Platform",
+      description: "Full-stack e-commerce solution with real-time inventory",
+      technologies: "React, Node.js, MongoDB, Express",
+      github: "https://github.com/vadim/ecommerce",
+      liveUrl: "https://ecommerce.example.com",
+      imageUrl: "https://example.com/ecommerce.jpg"
+    },
+    {
+      name: "Task Management App",
+      description: "Collaborative task management application",
+      technologies: "Angular, Python, Django, PostgreSQL",
+      github: "https://github.com/vadim/taskmanager",
+      liveUrl: "https://taskmanager.example.com",
+      imageUrl: "https://example.com/taskmanager.jpg"
+    }
+  ]
+}
+```
+
+### Diana Ukrainsky (User ID: 2)
+```javascript
+{
+  userId: 2,
+  name: "Diana Ukrainsky",
+  email: "diana@example.com",
+  personalInfo: {
+    firstName: "Diana",
+    lastName: "Ukrainsky",
+    title: "Frontend Developer",
+    description: "Creative frontend developer specializing in user experience and modern web design",
+    location: "San Francisco, USA",
+    phone: "+1 (555) 987-6543",
+    email: "diana@example.com",
+    github: "https://github.com/diana",
+    linkedin: "https://linkedin.com/in/diana",
+    twitter: "https://twitter.com/diana",
+    website: "https://diana.dev"
+  },
+  navLinks: [
+    { name: "About", url: "#about" },
+    { name: "Experience", url: "#experience" },
+    { name: "Education", url: "#education" },
+    { name: "Skills", url: "#skills" },
+    { name: "Projects", url: "#projects" },
+    { name: "Contact", url: "#contact" }
+  ],
+  socialLinks: [
+    { platform: "GitHub", url: "https://github.com/diana", icon: "fab fa-github" },
+    { platform: "LinkedIn", url: "https://linkedin.com/in/diana", icon: "fab fa-linkedin" },
+    { platform: "Twitter", url: "https://twitter.com/diana", icon: "fab fa-twitter" }
+  ],
+  experiences: [
+    {
+      company: "Design Studio",
+      position: "Senior Frontend Developer",
+      period: "2019 - Present",
+      description: "Leading frontend development for creative web applications",
+      location: "San Francisco, USA",
+      technologies: ["React", "Vue.js", "TypeScript", "Figma"]
+    },
+    {
+      company: "Digital Agency",
+      position: "Frontend Developer",
+      period: "2017 - 2019",
+      description: "Developed responsive and interactive web applications",
+      location: "Los Angeles, USA",
+      technologies: ["Angular", "JavaScript", "Sass", "Webpack"]
+    }
+  ],
+  education: [
+    {
+      institution: "Design Institute",
+      degree: "Bachelor of Arts",
+      field: "Web Design & Development",
+      period: "2013 - 2017",
+      location: "San Francisco, USA",
+      description: "Graduated with distinction"
+    }
+  ],
+  skillCategories: [
+    {
+      name: "Frontend",
+      skills: ["React", "Vue.js", "Angular", "TypeScript", "Sass"]
+    },
+    {
+      name: "Design",
+      skills: ["Figma", "Adobe XD", "UI/UX Design", "Responsive Design"]
+    },
+    {
+      name: "Tools",
+      skills: ["Git", "Webpack", "Jest", "Cypress", "Docker"]
+    }
+  ],
+  projects: [
+    {
+      name: "Portfolio Website",
+      description: "Modern and responsive portfolio website",
+      technologies: "React, TypeScript, Styled Components",
+      github: "https://github.com/diana/portfolio",
+      liveUrl: "https://diana.example.com",
+      imageUrl: "https://example.com/portfolio.jpg"
+    },
+    {
+      name: "Design System",
+      description: "Reusable component library and design system",
+      technologies: "Vue.js, Storybook, SCSS",
+      github: "https://github.com/diana/design-system",
+      liveUrl: "https://design.example.com",
+      imageUrl: "https://example.com/design-system.jpg"
+    }
+  ]
+}
+```
+
+## Additional Features
+- Set up error handling middleware
+- Implement proper request validation with Joi or similar
+- Add CORS support for frontend integration
+- Implement basic logging with Winston or Pino
+- Set up Swagger documentation for the API
+- Include basic security measures (rate limiting, helmet for security headers)
+
+## Testing
+- Include unit tests for services and repositories
+- Set up integration tests for API endpoints
+- Consider using Jest or Mocha for testing
+
+## Environment Variables
+The application should be configurable via environment variables:
+- MongoDB connection string
+- Port for the API server
+- Environment (development, production)
+- Logging level
+
+## Documentation
+- Include a comprehensive README.md
+- Add API documentation
+- Include setup instructions for both local development and Docker
+
+## Running Instructions
+The solution should:
+1. Run with a simple `docker-compose up`
+2. Have a database initialization script that runs automatically
+3. Be accessible at http://localhost:3000 (or a configurable port)
+4. Have clear instructions for testing the API
+
+Please create a complete, production-ready Node.js backend for this resume application following these requirements. 

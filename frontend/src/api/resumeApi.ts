@@ -8,11 +8,10 @@ import {
   SkillCategory,
 } from "../types";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5112/api/Resume";
+import { defaultData } from "./mockData";
 
-// Add explicit console log when initializing
-console.log("Resume API service initialized with base URL:", API_BASE_URL);
+// Mock implementation of the Resume API
+console.log("Resume API service initialized with mock data");
 
 interface ResumeData {
   personalInfo: PersonalInfo;
@@ -25,60 +24,53 @@ interface ResumeData {
 }
 
 /**
- * Generic API request function to reduce code duplication
+ * Get data from mock data source
  */
-const apiRequest = async <T>(endpoint: string): Promise<T> => {
-  console.log(`Fetching API data from: ${API_BASE_URL}/${endpoint}`);
-  try {
-    const response = await fetch(`${API_BASE_URL}/${endpoint}`);
+const getMockData = <T>(endpoint: string): T => {
+  console.log(`Fetching mock data for ${endpoint}`);
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`API Error (${response.status}): ${errorText}`);
-      throw new Error(
-        `HTTP error! status: ${response.status}, message: ${errorText}`
-      );
-    }
+  // Use the default data (Vadim's data)
+  const userData = defaultData;
 
-    const data = (await response.json()) as T;
-    console.log(`Successfully fetched data from ${endpoint}:`, data);
-    return data;
-  } catch (error) {
-    console.error(`Error fetching ${endpoint}:`, error);
-    throw error;
+  // Return the specific data section or the whole object for "all"
+  if (endpoint === "all") {
+    return userData as unknown as T;
   }
+
+  // Return the specific section of the data
+  return userData[endpoint as keyof typeof userData] as unknown as T;
 };
 
 // Function to fetch all resume data at once
 export const fetchResumeData = async (): Promise<ResumeData> => {
-  return apiRequest<ResumeData>("all");
+  return getMockData<ResumeData>("all");
 };
 
 // Individual fetch functions for specific data
 export const fetchPersonalInfo = async (): Promise<PersonalInfo> => {
-  return apiRequest<PersonalInfo>("personalInfo");
+  return getMockData<PersonalInfo>("personalInfo");
 };
 
 export const fetchNavLinks = async (): Promise<NavLink[]> => {
-  return apiRequest<NavLink[]>("navLinks");
+  return getMockData<NavLink[]>("navLinks");
 };
 
 export const fetchSocialLinks = async (): Promise<SocialLink[]> => {
-  return apiRequest<SocialLink[]>("socialLinks");
+  return getMockData<SocialLink[]>("socialLinks");
 };
 
 export const fetchExperiences = async (): Promise<Experience[]> => {
-  return apiRequest<Experience[]>("experiences");
+  return getMockData<Experience[]>("experiences");
 };
 
 export const fetchEducation = async (): Promise<Education[]> => {
-  return apiRequest<Education[]>("education");
+  return getMockData<Education[]>("education");
 };
 
 export const fetchSkillCategories = async (): Promise<SkillCategory[]> => {
-  return apiRequest<SkillCategory[]>("skillCategories");
+  return getMockData<SkillCategory[]>("skillCategories");
 };
 
 export const fetchProjects = async (): Promise<Project[]> => {
-  return apiRequest<Project[]>("projects");
+  return getMockData<Project[]>("projects");
 };

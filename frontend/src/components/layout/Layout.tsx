@@ -10,9 +10,11 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-        <Navbar />
-        <main>{children}</main>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 relative">
+        <div className="relative z-20">
+          <Navbar />
+        </div>
+        <main className="relative z-10">{children}</main>
         <Footer />
       </div>
     </ThemeProvider>

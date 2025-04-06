@@ -15,12 +15,6 @@ Add the following secrets to your GitHub repository:
 | `VERCEL_PROJECT_ID` | prj_7OFK11CLE0iyS1QWXIIad9mlxiyU | Already extracted from your .vercel/project.json file                                    |
 | `VERCEL_ORG_ID`     | team_9xgD0uYMbB8QmEAZ3I5tBjST    | Already extracted from your .vercel/project.json file                                    |
 
-## Required Secret for Fly.io Deployment
-
-| Secret Name     | Value                 | How to Get                                                                                             |
-| --------------- | --------------------- | ------------------------------------------------------------------------------------------------------ |
-| `FLY_API_TOKEN` | Your Fly.io API token | Go to [Fly.io Dashboard](https://fly.io/user/personal_access_tokens) > Personal Access Tokens > Create |
-
 ## Note
 
 - These tokens give deploy access to your accounts, so keep them secure
