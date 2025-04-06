@@ -103,7 +103,7 @@ export const defaultData = {
       liveUrl: "https://ecommerce.example.com",
       image: "https://example.com/ecommerce.jpg",
       category: "fullstack",
-    } as Project,
+    } as unknown as Project,
     {
       title: "Task Management App",
       description: "Collaborative task management application",
@@ -112,6 +112,6 @@ export const defaultData = {
       liveUrl: "https://taskmanager.example.com",
       image: "https://example.com/taskmanager.jpg",
       category: "fullstack",
-    } as Project,
+    } as unknown as Project,
   ],
 };

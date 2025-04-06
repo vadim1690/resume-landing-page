@@ -9,6 +9,7 @@ export interface PersonalInfo {
   phone: string;
   location: string;
   bio: string;
+  summary: string;
 }
 
 export interface NavLink {
@@ -63,5 +64,6 @@ export interface Project {
   image: string;
   technologies: string[];
   githubUrl: string;
-  category?: string;
+  liveUrl?: string;
+  category: "web" | "backend" | "fullstack" | "mobile" | "other";
 }
